@@ -1,0 +1,20 @@
+# Entorno virtual
+venv/
+env/
+
+# Archivos de PyCharm
+.idea/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Base de datos local
+*.sqlite3
+
+# Archivos temporales
+*.log
+*.swp
+*.bak
