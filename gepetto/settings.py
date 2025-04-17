@@ -73,12 +73,24 @@ WSGI_APPLICATION = 'gepetto.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+import oracledb
+
+oracledb.init_oracle_client(
+    lib_dir= r"C:\Oracle\instantclient_23_7"
+)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'hlr50x7uyhs0umli_low',
+        'USER': 'ADMIN',
+        'PASSWORD': 'BaseDatos2025',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'wallet_location': r"C:\Oracle\instantclient_23_7\network\admin",
+        },
+}
 }
 
 

@@ -2,7 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+import os
+os.environ['TNS_ADMIN'] = r"C:\Users\hugoo\Desktop\PROGRAMACION\5 BIMESTRE\Programacion Web\SUMATIVA 2\Wallet_BD_Gepetto"
 
 def main():
     """Run administrative tasks."""
