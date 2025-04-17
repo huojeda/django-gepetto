@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # Rutas para vistas de paginas principales
-    path('', views.index, name='index'),  # Página principal (index.html)
+    path('', views.index, name='index'),
     path('quienesSomos/', views.quienesSomos, name='quienesSomos'),
     path('carro/', views.carro, name='carro'),
     path('contacto/', views.contacto, name='contacto'),

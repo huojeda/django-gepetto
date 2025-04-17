@@ -1,106 +1,65 @@
+{% extends 'myapp/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% block title %}CATALOGO{% endblock %}
 
-<body>
-    <!-- HIPERVINCULOS EN BARRA SUPERIOR -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container">
-         
-            <a class="navbar-brand" href="#">
-                <strong>MUEBLERÍA GEPETTO</strong>
-            </a>
-    
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">INICIO</a></li>
-                    <li class="nav-item"><a class="nav-link" href="categorias.html">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../login.html">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../registro.html">Registro</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../carro.html">Carro de Compras</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../contacto.html">Contáctanos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../quienesSomos.html">Quienes Somos</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <section class="hero">
-        <div class="container h-100 d-flex align-items-start">
-            <div class="row">
-                <p class="sale-text">CATÁLOGO</p>
-                <h1 class="hero-title">CATEGORÍAS</h1>
-                <p class="hero-subtitle">Despachos: Region de valparaiso y Region Metropolitana</p>
+{% block content %}
+<section class="hero">
+    <div class="container h-100 d-flex align-items-start">
+        <div class="row">
+            <p class="sale-text">CATÁLOGO</p>
+            <h1 class="hero-title">CATEGORÍAS</h1>
+            <p class="hero-subtitle">Despachos: Region de valparaiso y Region Metropolitana</p>
 
-                <div class="container">
-                    <div class="row">
+            <div class="container">
+                <div class="row">
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card">
-                                <img src="{% static 'img/tablas.jpg' %}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Tablas</h5>
-                                  <p class="card-text">Tablas de cocina hechas en Madera, firmes y resistentes para cortar, picar, amasar o servir un picoteo con estilo unico.</p>
-                                  <a href="tablas.html" class="btn join-btn">Ver Productos</a>
-                                </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card">
+                            <img src="{% static 'img/tablas.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Tablas</h5>
+                                <p class="card-text">Tablas de cocina hechas en Madera, firmes y resistentes para cortar, picar, amasar o servir un picoteo con estilo unico.</p>
+                                <a href="{% url 'tablas' %}" class="btn join-btn">Ver Productos</a>
                             </div>
-                        </div>         
-                        
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card">
-                                <img src="{% static 'img/repisas.jpg' %}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Repisas</h5>
-                                  <p class="card-text">Estantes o cajoneras de Madera para guardar y organizar todo lo que necesitas y complementar la decoración de tu hogar.</p>
-                                  <a href="repisas.html" class="btn join-btn">Ver Productos</a>
-                                </div>
-                            </div>
-                        </div>   
-                        
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card">
-                                <img src="{% static 'img/rack.jpg' %}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Rack</h5>
-                                  <p class="card-text">Rack TV de Madera con espacio suficiente para todos tus equipos electronicos combinando funcionalidad y diseño.</p>
-                                  <a href="rack.html" class="btn join-btn">Ver Productos</a>
-                                </div>
-                            </div>
-                        </div>    
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card">
-                                <img src="{% static 'img/mesa.jpg' %}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Mesas</h5>
-                                  <p class="card-text">Mesas de Madera unicas e irrepetibles que agregan elegancia y calidez de naturaleza a tu lugar de encuentro y reunión familiar.</p>
-                                  <a href="mesas.html" class="btn join-btn">Ver Productos</a>
-                                </div>
-                            </div>
-                        </div>   
-
+                        </div>
                     </div>
-                </div>
-                
 
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card">
+                            <img src="{% static 'img/repisas.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Repisas</h5>
+                                <p class="card-text">Estantes o cajoneras de Madera para guardar y organizar todo lo que necesitas y complementar la decoración de tu hogar.</p>
+                                <a href="{% url 'repisas' %}" class="btn join-btn">Ver Productos</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card">
+                            <img src="{% static 'img/rack.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Rack</h5>
+                                <p class="card-text">Rack TV de Madera con espacio suficiente para todos tus equipos electronicos combinando funcionalidad y diseño.</p>
+                                <a href="{% url 'rack' %}" class="btn join-btn">Ver Productos</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card">
+                            <img src="{% static 'img/mesa.jpg' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Mesas</h5>
+                                <p class="card-text">Mesas de Madera unicas e irrepetibles que agregan elegancia y calidez de naturaleza a tu lugar de encuentro y reunión familiar.</p>
+                                <a href="{% url 'mesas' %}" class="btn join-btn">Ver Productos</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </section>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+    </div>
+</section>
+{% endblock %}

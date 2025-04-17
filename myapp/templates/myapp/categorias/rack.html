@@ -1,43 +1,9 @@
+{% extends 'myapp/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rack</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% block title %}RACK{% endblock %}
 
-<body>
-    <!-- HIPERVINCULOS EN BARRA SUPERIOR -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container">
-          
-            <a class="navbar-brand" href="#">
-                <strong>MUEBLERÍA GEPETTO</strong>
-            </a>
-    
-   
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">INICIO</a></li>
-                    <li class="nav-item"><a class="nav-link" href="categorias.html">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../login.html">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../registro.html">Registro</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../carro.html">Carro de Compras</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../contacto.html">Contáctanos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../quienesSomos.html">Quienes Somos</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
+{% block content %}
+
     <section class="hero">
         <div class="container h-100 d-flex align-items-start">
             <div class="row">
@@ -54,7 +20,7 @@
                                 <div class="card-body">
                                   <h5 class="card-title">Rack Rústico</h5>
                                   <p class="card-text"></p>
-                                  <a href="../productos/rustico.html" class="btn join-btn">Ver Producto</a>
+                                  <a href="{% url 'rustico' %}" class="btn join-btn">Ver Producto</a>
                                 </div>
                             </div>
                         </div>         
@@ -65,7 +31,7 @@
                                 <div class="card-body">
                                   <h5 class="card-title">Rack Simple</h5>
                                   <p class="card-text"></p>
-                                  <a href="../productos/simple.html" class="btn join-btn">Ver Producto</a>
+                                  <a href="{% url 'simple' %}" class="btn join-btn">Ver Producto</a>
                                 </div>
                             </div>
                         </div>   
@@ -76,7 +42,7 @@
                                 <div class="card-body">
                                   <h5 class="card-title">Rack Metal</h5>
                                   <p class="card-text"></p>
-                                  <a href="../productos/metal.html" class="btn join-btn">Ver Producto</a>
+                                  <a href="{% url 'metal' %}" class="btn join-btn">Ver Producto</a>
                                 </div>
                             </div>
                         </div>       
@@ -88,8 +54,4 @@
             </div>
         </div>
     </section>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% endblock %}
