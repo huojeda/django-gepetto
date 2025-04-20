@@ -1,0 +1,81 @@
+{% extends 'myapp/base.html' %}
+{% load widget_tweaks %}
+{% block title %}REGISTRO{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="container h-100 d-flex align-items-start">
+            <div class="row w-100">
+                <h1 class="hero-title">CREAR CUENTaA</h1>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <p class="sale-text">Complete sus datos:</p>
+
+                            <!-- Nombre de usuario -->
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Nombre de usuario</label>
+                                {{ form.username|add_class:"form-control" }}
+                                <small class="text-danger">
+                                    {% for error in form.username.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </small>
+                            </div>
+
+                            <!-- Correo electrónico -->
+                            <div class="mb-3">
+                                <label for="id_email" class="form-label">Correo electrónico</label>
+                                {{ form.email|add_class:"form-control" }}
+                                <small class="text-danger">
+                                    {% for error in form.email.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </small>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="mb-3">
+                                <label for="id_password1" class="form-label">Contraseña</label>
+                                {{ form.password1|add_class:"form-control" }}
+                                <small class="text-danger">
+                                    {% for error in form.password1.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </small>
+                            </div>
+
+                            <!-- Confirmar Contraseña -->
+                            <div class="mb-3">
+                                <label for="id_password2" class="form-label">Confirmar contraseña</label>
+                                {{ form.password2|add_class:"form-control" }}
+                                <small class="text-danger">
+                                    {% for error in form.password2.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </small>
+                            </div>
+
+                            <!-- Botón de registro -->
+                            <div>
+                                <button type="submit" class="btn join-btn">Registrarse</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Enlace a login -->
+                <div class="col-12 mt-3"></div>
+                <div class="col-12 mb-2">
+                    <a href="{% url 'login' %}" class="btn join-btn w-100">¿Ya tienes cuenta? Iniciar sesión</a>
+                </div>
+                <div class="col-12 mt-3"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+

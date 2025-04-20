@@ -152,3 +152,6 @@ SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_PATH = '/'
+
+LOGIN_REDIRECT_URL = 'profile'  # Redirigir al inicio de la app o a una página de usuario
+LOGOUT_REDIRECT_URL = '/'  # Redirigir al inicio después de cerrar sesión

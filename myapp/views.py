@@ -1,7 +1,83 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
 
 
-# Create your views here.
 from django.shortcuts import render
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm
+from django.contrib.auth import authenticate
+
+
+#REGISTRO
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Esto guarda el usuario
+            return redirect('login')  # Redirige al login
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+#LOGIN
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # Aquí autenticamos al usuario
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)  # Iniciar sesión al usuario
+                return redirect('index')  # Redirigir al índice o página principal
+            else:
+                form.add_error(None, "Nombre de usuario o contraseña incorrectos.")
+        # Si el formulario no es válido o hay un error
+        return render(request, "myapp/login.html", {"form": form})
+    else:
+        form = AuthenticationForm()
+    return render(request, "myapp/login.html", {"form": form})
+
+#PROFILE
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
+@login_required
+def profile_view(request):
+    if request.method == 'POST':
+        # Si se envía el formulario de cambio de contraseña
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            # Actualizamos la sesión para evitar que el usuario se desconecte al cambiar la contraseña
+            update_session_auth_hash(request, form.user)
+            return redirect('profile')  # Redirigimos al perfil después del cambio de contraseña
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'myapp/profile.html', {'form': form})
+
+#LOGOUT
+# views.py
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    # Cierra la sesión del usuario
+    logout(request)
+    # Redirige
+    return render(request, 'registration/logout.html')
+
 
 #paginas principales
 def index(request):
@@ -13,14 +89,12 @@ def carro(request):
 def contacto(request):
     return render(request, 'myapp/contacto.html')
 
-def login(request):
-    return render(request, 'myapp/login.html')
+
 
 def quienesSomos(request):
     return render(request, 'myapp/quienesSomos.html')
 
-def registro(request):
-    return render(request, 'myapp/registro.html')
+
 
 #paginas categorias
 def categorias(request):

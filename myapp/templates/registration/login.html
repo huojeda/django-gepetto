@@ -1,0 +1,72 @@
+{% extends 'myapp/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}INICIAR SESIÓN{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="container h-100 d-flex align-items-start">
+            <div class="row w-100">
+                <h1 class="hero-title">INICIAR SESIÓN</h1>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <p class="sale-text">Ingrese sus datos para acceder:</p>
+
+                            <!-- Nombre de usuario -->
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Nombre de usuario</label>
+                                {{ form.username|add_class:"form-control" }}
+                                <small class="text-danger">
+                                    {% for error in form.username.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </small>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">Contraseña</label>
+                                {{ form.password|add_class:"form-control" }}
+                                <small class="text-danger">
+                                    {% for error in form.password.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </small>
+                            </div>
+
+                            <!-- Errores generales -->
+                            {% if form.non_field_errors %}
+                                <div class="error">
+                                    {% for error in form.non_field_errors %}
+                                        <p class="text-danger">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <!-- Botón de inicio de sesión -->
+                            <div>
+                                <button type="submit" class="btn join-btn">Entrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Enlace a registro -->
+                <div class="col-12 mt-3"></div>
+                <div class="col-12 mb-2">
+                    <a href="{% url 'register' %}" class="btn join-btn w-100">¿No tienes cuenta? Regístrate aquí</a>
+                </div>
+
+                <!-- Enlace para restablecer contraseña -->
+                <div class="col-12 mt-2">
+                    <a href="{% url 'password_reset' %}" class="btn join-btn w-100">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <div class="col-12 mt-3"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
