@@ -44,5 +44,9 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('cliente/', views.cliente_form, name='cliente_form'),
+    path('direccion/', views.direccion_form, name='direccion_form'),
+    path('medio_de_pago/', views.medio_de_pago_form, name='medio_de_pago_form'),
+    path('mis-datos/', views.mis_datos, name='mis_datos'),
 
 ]

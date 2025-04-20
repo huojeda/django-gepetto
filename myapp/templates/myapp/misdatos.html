@@ -1,0 +1,56 @@
+<!-- myapp/templates/myapp/misdatos.html -->
+{% extends 'myapp/base.html' %}
+
+{% block title %}Mis Datos{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+            <div class="row w-100 text-center">
+                <h1 class="hero-title">Bienvenido, {{ user.username }}!</h1>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h3 class="card-title">Información Personal</h3>
+                        <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+                        <p><strong>RUT Cliente:</strong> {{ cliente.rut_cliente }}</p>
+                        <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+                        <p><strong>Fecha de Nacimiento:</strong> {{ cliente.fecha_nacimiento }}</p>
+                        <p><strong>Género:</strong> {{ cliente.get_genero_display }}</p>
+                        <p><strong>Edad:</strong> {{ cliente.edad }}</p>
+
+                        <h3 class="mt-4">Direccion de Despacho</h3>
+                        <p><strong>Dirección:</strong> {{ cliente.direccion }}</p>
+                        <p><strong>Comuna:</strong> {{ cliente.comuna.nombre }}</p>
+                        <p><strong>Región:</strong> {{ cliente.region.nombre }}</p>
+
+                        <h3 class="mt-4">Medio de Pago</h3>
+                        {% if medio_de_pago %}
+                            <p><strong>Banco:</strong> {{ medio_de_pago.banco }}</p>
+                            <p><strong>Tipo de Cuenta:</strong> {{ medio_de_pago.tipo_de_cuenta }}</p>
+                            <p><strong>Número de Cuenta:</strong> {{ medio_de_pago.numero }}</p>
+                        {% else %}
+                            <p>No se ha registrado un medio de pago.</p>
+                        {% endif %}
+
+                        <!-- Botones para editar información -->
+                        <div class="mt-4">
+                            <a href="{% url 'cliente_form' %}" class="btn join-btn">Editar Información Personal</a>
+                        </div>
+                        <div class="mt-2">
+                            <a href="{% url 'direccion_form' %}" class="btn join-btn">Editar Dirección de Despacho</a>
+                        </div>
+                        <div class="mt-2">
+                            <a href="{% url 'medio_de_pago_form' %}" class="btn join-btn">Editar Medio de Pago</a>
+                        </div>
+
+                        <div class="mt-2">
+                            <a href="{% url 'index' %}" class="btn join-btn">Volver al Inicio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

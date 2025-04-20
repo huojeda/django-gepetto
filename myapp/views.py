@@ -47,7 +47,6 @@ def login_view(request):
     return render(request, "myapp/login.html", {"form": form})
 
 #PROFILE
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -67,8 +66,90 @@ def profile_view(request):
 
     return render(request, 'myapp/profile.html', {'form': form})
 
+#INFO CLIENTE
+from .forms import ClienteForm, DireccionForm, MedioDePagoForm
+from .models import Region
+from .models import Comuna
+from .models import Medio_de_Pago
+from .models import Cliente
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def cliente_form(request):
+    try:
+        cliente = Cliente.objects.get(user=request.user)  # Obtener el cliente logueado
+    except Cliente.DoesNotExist:
+        cliente = None  # Si no existe, establecemos cliente a None
+
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            cliente = form.save(commit=False)
+            cliente.user = request.user  # Asociamos el cliente al usuario logeado
+            cliente.save()
+            return redirect('mis_datos')  # Redirigimos a mis datos
+    else:
+        form = ClienteForm(instance=cliente)
+
+    return render(request, 'myapp/cliente_form.html', {'form': form})
+
+
+#INFO DIRECCION
+@login_required
+def direccion_form(request):
+    cliente = Cliente.objects.get(user=request.user)  # Obtenemos el cliente logeado
+
+    if request.method == 'POST':
+        form = DireccionForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('mis_datos')  # Redirigimos a mis datos
+    else:
+        form = DireccionForm(instance=cliente)
+
+    return render(request, 'myapp/direccion_form.html', {'form': form})
+
+#INFO MEDIO DE PAGO
+@login_required
+def medio_de_pago_form(request):
+    if request.method == 'POST':
+        form = MedioDePagoForm(request.POST)
+        if form.is_valid():
+            medio_de_pago = form.save(commit=False)
+            medio_de_pago.cliente = Cliente.objects.get(user=request.user)  # Asociamos el medio de pago al cliente
+            medio_de_pago.save()
+            return redirect('mis_datos')  # Redirigimos a mis datos
+    else:
+        form = MedioDePagoForm()
+
+    return render(request, 'myapp/medio_de_pago_form.html', {'form': form})
+
+#MIS DATOS
+# myapp/views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import (Cliente,
+                     Medio_de_Pago)
+from .forms import ClienteForm, DireccionForm, MedioDePagoForm
+
+@login_required
+def mis_datos(request):
+    try:
+        cliente = Cliente.objects.get(user=request.user)  # Obtener el cliente asociado al usuario logueado
+    except Cliente.DoesNotExist:
+        return redirect('cliente_form')  # Si no existe, redirige al formulario de cliente
+
+    # Obtener el medio de pago
+    medio_de_pago = Medio_de_Pago.objects.filter(cliente=cliente).first()
+
+    return render(request, 'myapp/misdatos.html', {
+        'cliente': cliente,
+        'medio_de_pago': medio_de_pago,
+    })
+
+
+
 #LOGOUT
-# views.py
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
