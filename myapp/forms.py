@@ -33,6 +33,12 @@ from .models import (Cliente,
                      Comuna,
                      Region)
 
+from django import forms
+from .models import Cliente
+import re
+from datetime import date
+
+
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
@@ -43,7 +49,33 @@ class ClienteForm(forms.ModelForm):
         if self.instance and self.instance.pk:  # Si estamos editando una instancia existente
             self.fields['rut_cliente'].widget.attrs['readonly'] = True  # Hacer el campo 'rut_cliente' solo lectura
 
-    # Opcional: puedes agregar validaciones personalizadas si es necesario
+    def clean_rut_cliente(self):
+        rut = self.cleaned_data.get('rut_cliente')
+        # Validar el formato de RUT (ejemplo de validación básica)
+        if not re.match(r'^\d{1,2}\.\d{3}\.\d{3}-[\dkK]$', rut):
+            raise forms.ValidationError("El RUT no tiene un formato válido. (12.345.678-9).")
+
+        # Validación de unicidad para asegurarse que el RUT no se repita
+        if Cliente.objects.filter(rut_cliente=rut).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError("Este RUT ya está registrado.")
+
+        return rut
+
+    def clean_edad(self):
+        edad = self.cleaned_data.get('edad')
+        # Validar que la edad sea un número positivo
+        if edad <= 0:
+            raise forms.ValidationError("La edad debe ser un número mayor que 0.")
+        return edad
+
+    def clean_fecha_nacimiento(self):
+        fecha_nacimiento = self.cleaned_data.get('fecha_nacimiento')
+        # Validar que la fecha de nacimiento no sea una fecha futura
+        if fecha_nacimiento > date.today():
+            raise forms.ValidationError("La fecha de nacimiento no puede ser una fecha futura.")
+        return fecha_nacimiento
+
+
 
 #direccion
 class DireccionForm(forms.ModelForm):
