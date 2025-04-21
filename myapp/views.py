@@ -291,7 +291,26 @@ def ver_carrito(request):
 
     return render(request, 'myapp/carro.html', {'items': productos, 'total': total})
 
+#API CLIMA
+# views.py
+import requests
+from django.shortcuts import render
 
+def index(request):
+    clima = {}
+    ciudad = 'Santiago'
+    url = f'https://wttr.in/{ciudad}?format=j1'
 
+    try:
+        respuesta = requests.get(url)
+        if respuesta.status_code == 200:
+            data = respuesta.json()
+            clima = {
+                'ciudad': ciudad,
+                'temperatura': data['current_condition'][0]['temp_C'],
+                'descripcion': data['current_condition'][0]['weatherDesc'][0]['value']
+            }
+    except:
+        clima = None
 
-
+    return render(request, 'myapp/index.html', {'clima': clima})
