@@ -1,21 +1,58 @@
 {% extends 'myapp/base.html' %}
+{% load static %}
 {% block title %}Carro de Compras{% endblock %}
 
 {% block content %}
 <section class="hero">
     <div class="container h-100 d-flex align-items-start">
         <div class="row w-100">
-            <h1 class="hero-title">CARRO DE COMPRAS</h1>
-            <p class="sale-text"></p>
+            <h1 class="hero-title">Carro de Compras</h1>
 
-            <!-- Elimina el contenedor extra aquí -->
+            {% if items %}
+            <div class="col-12">
+                <div class="card p-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                    <td>{{ item.nombre }}</td>
+                                    <td>${{ item.precio }}</td>
+                                    <td>{{ item.cantidad }}</td>
+                                    <td>${{ item.subtotal }}</td>
+                                    <td>
+                                        <a href="{% url 'eliminar_del_carrito' item.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">Su carro está vacío...</p>
+                    <!-- Total -->
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <h4>Total: ${{ total }}</h4>
+                        <button type="submit" class="btn join-btn">PAGAR</button>
+                    </div>
                 </div>
             </div>
-
+            {% else %}
+            <div class="col-12">
+                <div class="card text-center p-5">
+                    <p class="card-text">Tu carro está vacío...</p>
+                    <a href="{% url 'categorias' %}" class="btn join-btn">Ir a Comprar</a>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

@@ -8,8 +8,7 @@ urlpatterns = [
     # Rutas para vistas de paginas principales
     path('', views.index, name='index'),
     path('quienesSomos/', views.quienesSomos, name='quienesSomos'),
-    path('carro/', views.carro, name='carro'),
-    path('contacto/', views.contacto, name='contacto'),
+    path('contacto/', views.contacto_view, name='contacto'),
 
 
     # Rutas para vistas de paginas categorias
@@ -33,7 +32,7 @@ urlpatterns = [
     path('rustico/', views.rustico, name='rustico'),
     path('simple/', views.simple, name='simple'),
 
-# usuarios
+    # USUARIOS
     path('profile/', views.profile_view, name='profile'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),  # Rutas predeterminadas de autenticación
@@ -48,5 +47,11 @@ urlpatterns = [
     path('direccion/', views.direccion_form, name='direccion_form'),
     path('medio_de_pago/', views.medio_de_pago_form, name='medio_de_pago_form'),
     path('mis-datos/', views.mis_datos, name='mis_datos'),
+
+    #CARRO DE COMPRA
+    path('carrito/', views.ver_carrito, name='ver_carrito'),
+    path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+    path('eliminar/<int:producto_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
+
 
 ]

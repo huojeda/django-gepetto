@@ -147,6 +147,13 @@ def mis_datos(request):
         'medio_de_pago': medio_de_pago,
     })
 
+#CONTACTO
+from django.shortcuts import render
+from .forms import ContactoForm
+
+def contacto_view(request):
+    form = ContactoForm()
+    return render(request, 'myapp/contacto.html', {'form': form})
 
 
 #LOGOUT
@@ -164,11 +171,9 @@ def logout_view(request):
 def index(request):
     return render(request, 'myapp/index.html')
 
-def carro(request):
-    return render(request, 'myapp/carro.html')
 
-def contacto(request):
-    return render(request, 'myapp/contacto.html')
+
+
 
 
 
@@ -230,6 +235,61 @@ def rustico(request):
 def simple(request):
     return render(request, 'myapp/productos/simple.html')
 
+#CARRO DE COMPRA
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Producto
+
+# Inicializa el carrito si no existe
+def _init_carrito(request):
+    if 'carrito' not in request.session:
+        request.session['carrito'] = {}
+
+from django.contrib import messages
+# Agrega producto al carrito
+def agregar_al_carrito(request, producto_id):
+    _init_carrito(request)
+    carrito = request.session['carrito']
+    producto_id = str(producto_id)
+
+    if producto_id in carrito:
+        carrito[producto_id] += 1
+    else:
+        carrito[producto_id] = 1
+
+    request.session.modified = True
+    return redirect('ver_carrito')
+
+# Elimina producto del carrito
+def eliminar_del_carrito(request, producto_id):
+    carrito = request.session.get('carrito', {})
+    producto_id = str(producto_id)
+
+    if producto_id in carrito:
+        del carrito[producto_id]
+        request.session.modified = True
+
+    return redirect('ver_carrito')
+
+# Muestra el carrito
+def ver_carrito(request):
+    _init_carrito(request)
+    carrito = request.session.get('carrito', {})
+    productos = []
+    total = 0
+
+    for producto_id, cantidad in carrito.items():
+        producto = get_object_or_404(Producto, id_producto=int(producto_id))
+        subtotal = producto.precio * cantidad
+        productos.append({
+            'id': producto.id_producto,
+            'nombre': producto.nombre_producto,
+            'precio': producto.precio,
+            'cantidad': cantidad,
+            'subtotal': subtotal
+        })
+        total += subtotal
+
+    return render(request, 'myapp/carro.html', {'items': productos, 'total': total})
 
 
 

@@ -42,7 +42,7 @@ from datetime import date
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = ['nombre', 'rut_cliente', 'telefono', 'fecha_nacimiento', 'genero', 'edad']
+        fields = ['nombre_cliente', 'rut_cliente', 'telefono', 'fecha_nacimiento', 'genero', 'edad']
 
     def __init__(self, *args, **kwargs):
         super(ClienteForm, self).__init__(*args, **kwargs)
@@ -78,17 +78,68 @@ class ClienteForm(forms.ModelForm):
 
 
 #direccion
+from django import forms
+from .models import Cliente  # Asegúrate de que la ruta al modelo sea correcta
+
 class DireccionForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = ['direccion', 'comuna', 'region']
 
+    def __init__(self, *args, **kwargs):
+        super(DireccionForm, self).__init__(*args, **kwargs)
+        # Marcar todos los campos como obligatorios
+        for field in self.fields.values():
+            field.required = True
+            field.widget.attrs.update({'required': 'required'})
+
+
     # Aquí también se pueden agregar validaciones si es necesario
 
 #from .models import Medio_de_Pago
+
+from django import forms
+from .models import Medio_de_Pago
+import re
+from django.core.exceptions import ValidationError
 
 class MedioDePagoForm(forms.ModelForm):
     class Meta:
         model = Medio_de_Pago
         fields = ['banco', 'tipo_de_cuenta', 'numero']
+
+    def __init__(self, *args, **kwargs):
+        super(MedioDePagoForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = True
+            field.widget.attrs.update({'required': 'required'})
+
+    def clean_banco(self):
+        banco = self.cleaned_data.get('banco')
+        if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$', banco):
+            raise ValidationError("El banco solo debe contener letras.")
+        return banco
+
+    def clean_tipo_de_cuenta(self):
+        tipo = self.cleaned_data.get('tipo_de_cuenta')
+        if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$', tipo):
+            raise ValidationError("El tipo de cuenta solo debe contener letras.")
+        return tipo
+
+    def clean_numero(self):
+        numero = self.cleaned_data.get('numero')
+        if not str(numero).isdigit():
+            raise ValidationError("El número de cuenta solo debe contener números.")
+        return numero
+
+# forms.py
+from django import forms
+
+class ContactoForm(forms.Form):
+    nombre = forms.CharField(label='Nombre Completo', max_length=100, required=True)
+    direccion = forms.CharField(label='Dirección', max_length=255, required=True)
+    fono = forms.CharField(label='Teléfono', max_length=15, required=True)
+    correo = forms.EmailField(label='Correo Electrónico', required=True)
+    mensaje = forms.CharField(label='Mensaje', widget=forms.Textarea, required=True)
+
 

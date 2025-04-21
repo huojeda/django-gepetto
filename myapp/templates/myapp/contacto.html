@@ -3,68 +3,50 @@
 {% block title %}CONTÁCTANOS{% endblock %}
 
 {% block content %}
-    <!-- SECCION CENTRAL -->
-    <section class="hero">
-        <div class="container h-100 d-flex align-items-start">
-            <div class="row w-100">
-                <h1 class="hero-title">CONTÁCTANOS</h1>
-                <div class="col-12 mb-2">
-                    <a href="mailto:muebleria.gepetto@gmail.com" class="btn join-btn w-100">Escríbenos a: muebleria.gepetto@gmail.com</a>
-                </div>
-                <div class="col-12 mb-2">
-                    <a href="tel:+56923985823" class="btn join-btn w-100">Llámanos a: 9 2398 5823</a>
-                </div>
-                <div class="col-12 mt-3"></div>
-                
-                <div class="card">      
-                    <div class="card-body">
-                        <form id="formulario_contacto" action="">
-                            <p class="sale-text">FORMULARIO: Ingrese sus datos para comunicarnos con usted, y su mensaje, solicitud, consulta, reclamo o sugerencias.</p>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre">
-                                <small class="text-danger" id="nombre-error"></small>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" name="direccion" id="direccion">
-                                <small class="text-danger" id="direccion-error"></small>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" name="fono" id="fono">
-                                <small class="text-danger" id="fono-error"></small>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">Correo Electronico</label>
-                                <input type="text" class="form-control" name="correo" id="correo">
-                                <small class="text-danger" id="correo-error"></small>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">Mensaje:</label>
-                                <textarea name="mensaje" id="mensaje" class="form-control" cols="10" rows="5"></textarea>
-                                <small class="text-danger" id="mensaje-error"></small>
-                            </div>
-                            
-                            <div class= "d-grid">
-                                <button type="submit" class="btn join-btn">ENVIAR</button>
-                            </div>
-                            <div id="mensaje-exito" class="alert alert-success" style="display: none;" role="alert">
-                               
-                            </div>
-                        </form>
-                       
-                    </div>
-                </div>
-                <div class="col-12 mt-3"></div>
+<section class="hero">
+    <div class="container h-100 d-flex align-items-start">
+        <div class="row w-100">
+            <h1 class="hero-title">CONTÁCTANOS</h1>
+            <div class="col-12 mb-2">
+                <a href="mailto:muebleria.gepetto@gmail.com" class="btn join-btn w-100">Escríbenos a: muebleria.gepetto@gmail.com</a>
             </div>
-        </div>
-    </section>
+            <div class="col-12 mb-2">
+                <a href="tel:+56923985823" class="btn join-btn w-100">Llámanos a: 9 2398 5823</a>
+            </div>
 
+            <div class="col-12 mt-3"></div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form id="formulario_contacto" method="post" action="">
+                        {% csrf_token %}
+                        <p class="sale-text">
+                            FORMULARIO: Ingrese sus datos para comunicarnos con usted, y su mensaje, solicitud, consulta, reclamo o sugerencias.
+                        </p>
+
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.errors %}
+                                    <small class="text-danger">{{ field.errors|striptags }}</small>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn join-btn">ENVIAR</button>
+                        </div>
+
+                        <div id="mensaje-exito" class="alert alert-success" style="display: none;" role="alert"></div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3"></div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 
