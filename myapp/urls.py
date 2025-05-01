@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from .views import ProductoListAPIView, PublicidadListAPIView
 
 from . import views
 
@@ -52,6 +53,10 @@ urlpatterns = [
     path('carrito/', views.ver_carrito, name='ver_carrito'),
     path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
     path('eliminar/<int:producto_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
+
+    #API
+    path('api/productos/', ProductoListAPIView.as_view(), name='producto-list'),
+    path('api/publicidad/', PublicidadListAPIView.as_view(), name='publicidad-list'),
 
 
 ]

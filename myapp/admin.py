@@ -1,8 +1,7 @@
-from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Categoria, Producto
+from .models import Categoria, Producto, Publicidad
 
 # Registrar el modelo Categoria
 @admin.register(Categoria)
@@ -17,3 +16,8 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ('nombre_producto',)  # Campo para búsqueda
     list_filter = ('nombre_categoria',)  # Filtros para categorías
     ordering = ('-precio',)  # Ordenar los productos por precio de mayor a menor
+
+# Registrar el modelo Publicidad
+@admin.register(Publicidad)
+class PublicidadAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'imagen_nombre')

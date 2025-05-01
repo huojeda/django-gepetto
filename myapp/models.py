@@ -71,5 +71,14 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre_producto
 
+#TABLA PARA API PUBLICIDAD
+class Publicidad(models.Model):
+    titulo = models.CharField(max_length=100)
+    imagen_nombre = models.CharField(max_length=100)  # Solo el nombre del archivo, como "promo1.jpg"
+
+    def __str__(self):
+        return self.titulo
+
+
 
 

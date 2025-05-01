@@ -314,3 +314,22 @@ def index(request):
         clima = None
 
     return render(request, 'myapp/index.html', {'clima': clima})
+
+
+#Api para mostrar productos en stock con nombre y precio
+from rest_framework import generics
+from .models import Producto
+from .serializers import ProductoSerializer
+
+class ProductoListAPIView(generics.ListAPIView):
+    queryset = Producto.objects.filter(stock__gt=0)  # solo productos con stock
+    serializer_class = ProductoSerializer
+
+#API Publicidad
+from rest_framework import generics
+from .models import Publicidad
+from .serializers import PublicidadSerializer
+
+class PublicidadListAPIView(generics.ListAPIView):
+    queryset = Publicidad.objects.all()
+    serializer_class = PublicidadSerializer
