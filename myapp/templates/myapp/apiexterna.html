@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos de Decoración</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .producto {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Productos Disponibles</h1>
+
+        <div class="productos">
+            {% for producto in productos %}
+                <div class="producto">
+                    <h2>{{ producto.title }}</h2>
+                    <p>Precio: ${{ producto.price }}</p>
+                    <p>{{ producto.description }}</p>
+                    <img src="{{ producto.image }}" alt="{{ producto.title }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

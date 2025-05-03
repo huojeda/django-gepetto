@@ -54,9 +54,14 @@ urlpatterns = [
     path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
     path('eliminar/<int:producto_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
 
-    #API
+    #API Propia
     path('api/productos/', ProductoListAPIView.as_view(), name='producto-list'),
     path('api/publicidad/', PublicidadListAPIView.as_view(), name='publicidad-list'),
+
+    #API Externa
+    path('apiexterna/', views.productos_view, name='apiexterna'),
+    path('apiexterna2/', views.conversion_monedas_view, name='conversion_monedas'),
+
 
 
 ]

@@ -333,3 +333,35 @@ from .serializers import PublicidadSerializer
 class PublicidadListAPIView(generics.ListAPIView):
     queryset = Publicidad.objects.all()
     serializer_class = PublicidadSerializer
+
+
+#API externa 1
+import requests
+from django.shortcuts import render
+# Función que obtiene productos de la Fake Store API
+def obtener_productos():
+    url = "https://fakestoreapi.com/products"  # URL de la API
+    response = requests.get(url)  # Realiza la solicitud GET a la API
+    if response.status_code == 200:
+        return response.json()  # Si la solicitud es exitosa, retorna los productos como JSON
+    else:
+        return []  # Si hay un error, retorna una lista vacía
+
+# Vista que obtiene los productos y los pasa a la plantilla
+def productos_view(request):
+    productos = obtener_productos()  # Llamamos a la función que obtiene los productos
+    return render(request, 'myapp/apiexterna.html', {'productos': productos})
+
+
+#API externa 2
+def conversion_monedas_view(request):
+    url = "https://api.exchangerate-api.com/v4/latest/USD"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        datos = response.json()
+        tasas = datos.get("rates", {})
+    else:
+        tasas = {}
+
+    return render(request, 'myapp/apiexterna2.html', {'tasas': tasas})

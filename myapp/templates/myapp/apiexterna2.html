@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversión de Monedas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Conversión de Monedas (desde USD)</h1>
+
+    {% if tasas %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Moneda</th>
+                    <th>Tasa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for moneda, tasa in tasas.items %}
+                    <tr>
+                        <td>{{ moneda }}</td>
+                        <td>{{ tasa }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="text-align:center;">No se pudo obtener la información de la API.</p>
+    {% endif %}
+
+</body>
+</html>
