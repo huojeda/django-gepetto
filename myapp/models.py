@@ -49,7 +49,7 @@ class Cliente(models.Model):
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.nombre} ({self.user.username})"
+        return f"{self.nombre_cliente} ({self.user.username})"
 
 
 #TABLA CATEGORIA DE PRODUCTOS

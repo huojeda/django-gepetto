@@ -86,6 +86,7 @@ def cliente_form(request):
         if form.is_valid():
             cliente = form.save(commit=False)
             cliente.user = request.user  # Asociamos el cliente al usuario logeado
+            cliente.nombre_cliente = request.user.first_name
             cliente.save()
             return redirect('mis_datos')  # Redirigimos a mis datos
     else:
@@ -125,7 +126,6 @@ def medio_de_pago_form(request):
     return render(request, 'myapp/medio_de_pago_form.html', {'form': form})
 
 #MIS DATOS
-# myapp/views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import (Cliente,
@@ -170,13 +170,6 @@ def logout_view(request):
 #paginas principales
 def index(request):
     return render(request, 'myapp/index.html')
-
-
-
-
-
-
-
 def quienesSomos(request):
     return render(request, 'myapp/quienesSomos.html')
 

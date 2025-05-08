@@ -42,7 +42,7 @@ from datetime import date
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = ['nombre_cliente', 'rut_cliente', 'telefono', 'fecha_nacimiento', 'genero', 'edad']
+        fields = ['rut_cliente', 'telefono', 'fecha_nacimiento', 'genero', 'edad']
 
     def __init__(self, *args, **kwargs):
         super(ClienteForm, self).__init__(*args, **kwargs)
